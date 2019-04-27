@@ -5,7 +5,11 @@ import static org.junit.Assert.assertThat;
 import java.util.Date;
 
 import org.hamcrest.CoreMatchers;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
@@ -21,19 +25,48 @@ import br.ce.wcaquino.utils.DataUtils;
 
 public class LocacaoServiceTest {
 
+	private LocacaoService service;
+	//manter variável static não deixa junit zerar conteúdo toda vez que faz @before
+	private static int contador; 
+	
 	@Rule 
 	public ErrorCollector error = new ErrorCollector();
 	
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
 	
+	@Before
+	public void setup() {
+		System.out.println("before");
+		service = new LocacaoService();
+		contador ++;
+		System.out.println(contador + " vezes");
+	}
+	
+	@After
+	public void tearDown() {
+		System.out.println("after");
+	}
+	
+	@BeforeClass
+	public static void  setupClass() {
+		System.out.println("beforeClass");
+	}
+	
+	@AfterClass
+	public static void tearDownClass() {
+		System.out.println("afterClass");
+	}
+	
 	@Test
 	public void testeLocacao() throws Exception{
 
+		System.out.println("Teste locação");
+		
 		//cenario
 		Filme filme = new Filme("filme", 2, 5.0);
 		Usuario usuario = new Usuario("Cristina");
-		LocacaoService service = new LocacaoService();
+		
 		
 		//ação
 		Locacao locacao = service.alugarFilme(usuario, filme);
