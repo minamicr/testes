@@ -3,6 +3,7 @@ package br.ce.wcaquino.servicos;
 import static br.ce.wcaquino.utils.DataUtils.adicionarDias;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -44,6 +45,9 @@ public class LocacaoService {
 		//Entrega no dia seguinte
 		Date dataEntrega = new Date();
 		dataEntrega = adicionarDias(dataEntrega, 1);
+		if (DataUtils.verificarDiaSemana(dataEntrega, Calendar.SUNDAY)) {
+			dataEntrega = adicionarDias(dataEntrega, 1);
+		}
 		locacao.setDataRetorno(dataEntrega);
 		
 		//Salvando a locacao...	
@@ -60,7 +64,6 @@ public class LocacaoService {
 	}
 	
 	private Double getPrecoLocacaoComDesconto(List<Filme> filmes) {
-		int quantidadeFilmes = filmes.size();
 		double valorFilme = 0;
 		double valorTotal = 0;
 		int filmeAtual = 0;
@@ -69,13 +72,13 @@ public class LocacaoService {
 			filmeAtual ++;
 			valorFilme = filme.getPrecoLocacao();
 			
-			if (quantidadeFilmes == 3 && filmeAtual == 3) {
+			if (filmeAtual == 3) {
 				valorFilme = valorFilme * (1 - 0.25);
-			} else if (quantidadeFilmes == 4 && filmeAtual == 4) {
+			} else if (filmeAtual == 4) {
 				valorFilme = valorFilme * (1 - 0.50);
-			}else if (quantidadeFilmes == 5 && filmeAtual == 5) {
+			}else if (filmeAtual == 5) {
 				valorFilme = valorFilme * (1 - 0.75);
-			}else if (quantidadeFilmes == 6 && filmeAtual == 6) {
+			}else if (filmeAtual == 6) {
 				valorFilme = valorFilme * (1 - 1);
 			}
 			

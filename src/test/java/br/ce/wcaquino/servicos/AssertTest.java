@@ -14,7 +14,7 @@ public class AssertTest {
 	public void Test() {
 		Assert.assertTrue(!false);
 		Assert.assertFalse(false);
-		Assert.assertEquals("Erro de comaração", 1, 2);
+		Assert.assertEquals("Erro de comparação", 1, 1);
 		Assert.assertEquals(Math.PI, 3.14, 0.01);
 		Assert.assertTrue("bola".equalsIgnoreCase("Bola"));
 		Assert.assertTrue("bola".startsWith("bo"));

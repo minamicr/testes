@@ -49,3 +49,6 @@ public class Locacao {
 		this.valorComDesconto = valorComDesconto;
 	}
 }
+
+
+
